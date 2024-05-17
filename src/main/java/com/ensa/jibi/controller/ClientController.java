@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/clients")
+@RequestMapping("/api/clients")
+@CrossOrigin(origins="http://localhost:4200/")
 public class ClientController {
 
     @Autowired
@@ -18,6 +19,7 @@ public class ClientController {
 
     @PostMapping("/register")
     public ResponseEntity<Client> registerClient(@RequestBody ClientDTO clientDTO) {
+        System.out.println(clientDTO);
         Client client = new Client();
         client.setFirstname(clientDTO.getFirstname());
         client.setLastname(clientDTO.getLastname());

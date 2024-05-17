@@ -7,6 +7,8 @@ import com.ensa.jibi.sms.TwilioSmsSender;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
+import org.apache.commons.lang3.RandomStringUtils;
+
 
 @Service
 public class ClientService {
@@ -25,6 +27,6 @@ public class ClientService {
     }
 
     private String generateTemporaryPassword() {
-        return "temp1234";
+        return RandomStringUtils.randomAlphanumeric(8);
     }
 }
