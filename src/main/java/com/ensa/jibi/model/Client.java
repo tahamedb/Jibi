@@ -34,7 +34,10 @@ public class Client {
     private String accountType;
 
     @Column(nullable = false)
-    private String password;  // This will store the temporary password initially
+    private String password;
+
+    @Column(nullable = false)
+    private boolean requiresPasswordChange = true;  // Indique si le client doit changer son mot de passe
 
 
 
