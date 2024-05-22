@@ -1,5 +1,6 @@
 package com.ensa.jibi.service;
 
+import com.ensa.jibi.cmi.CmiService;
 import com.ensa.jibi.model.Client;
 import com.ensa.jibi.repository.ClientRepository;
 import com.ensa.jibi.sms.TwilioSmsSender;
@@ -18,9 +19,15 @@ public class ClientService {
     @Autowired
     private TwilioSmsSender twilioSmsSender;
 
+    @Autowired
+    private CmiService cmiService;
+
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public Client registerClient(Client client) {
+        if (!cmiService.isResponseFavorable()) {
+            throw new IllegalArgumentException("CMI response is not favorable");
+        }
         String tempPassword = generateTemporaryPassword();
         client.setPassword(passwordEncoder.encode(tempPassword));  // Hashing du mot de passe temporaire
         twilioSmsSender.sendSms(client.getPhone(), "Your temporary password is: " + tempPassword);

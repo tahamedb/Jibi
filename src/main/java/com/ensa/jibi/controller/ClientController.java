@@ -20,17 +20,27 @@ public class ClientController {
     private ClientService clientService;
 
     @PostMapping("/register")
-    public ResponseEntity<Client> registerClient(@RequestBody ClientDTO clientDTO) {
-        Client client = new Client();
-        client.setFirstname(clientDTO.getFirstname());
-        client.setLastname(clientDTO.getLastname());
-        client.setEmail(clientDTO.getEmail());
-        client.setPhone(clientDTO.getPhone());
-        client.setAccountType(clientDTO.getAccountType());
+    public ResponseEntity<?> registerClient(@RequestBody ClientDTO clientDTO) {
+        try {
+            Client client = new Client();
+            client.setFirstname(clientDTO.getFirstname());
+            client.setLastname(clientDTO.getLastname());
+            client.setEmail(clientDTO.getEmail());
+            client.setPhone(clientDTO.getPhone());
+            client.setAccountType(clientDTO.getAccountType());
 
-        Client registeredClient = clientService.registerClient(client);
+            Client registeredClient = clientService.registerClient(client);
 
-        return ResponseEntity.ok(registeredClient);
+            return ResponseEntity.ok(registeredClient);
+        }
+
+
+        catch (IllegalArgumentException e) {
+            return ResponseEntity.status(401).body(e.getMessage());
+        }
+        catch (Exception e) {
+            return ResponseEntity.status(400).body(e.getMessage());
+            }
     }
 
     @PostMapping("/login")
