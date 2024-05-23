@@ -23,6 +23,8 @@ public class ClientController {
         client.setLastname(clientDTO.getLastname());
         client.setEmail(clientDTO.getEmail());
         client.setPhone(clientDTO.getPhone());
+        client.setCin(clientDTO.getCin());
+
         client.setAccountType(clientDTO.getAccountType());
 
         Client registeredClient = clientService.registerClient(client);
