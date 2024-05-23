@@ -25,7 +25,7 @@ public class ClientService {
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public Client registerClient(Client client) {
-        if (!cmiService.isResponseFavorable()) {
+        if (!cmiService.isResponseFavorable(client)) {
             throw new IllegalArgumentException("CMI response is not favorable");
         }
         String tempPassword = generateTemporaryPassword();
