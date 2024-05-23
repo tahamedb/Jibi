@@ -37,6 +37,9 @@ public class Client {
     private String password;
 
     @Column(nullable = false)
+    private boolean requiresPasswordChange = true;  // Indique si le client doit changer son mot de passe
+
+    @Column(nullable = false)
     private String cin;
 
 
