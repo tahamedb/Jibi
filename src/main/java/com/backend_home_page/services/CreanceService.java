@@ -52,7 +52,7 @@ public class CreanceService{
                     break;
                 case DONNATION:
                     formFieldsJSON = "[{\"key\":\"donorName\",\"label\":\"Nom et prénom du donnateur\",\"type\":\"text\",\"placeholder\":\"Enter donor name\"}," +
-                            "{\"key\":\"amount\",\"label\":\"Montant du don\",\"type\":\"number\",\"placeholder\":\"Enter donation amount\"}]";
+                            "{\"key\":\"amoungit reset HEAD .\ngit reset HEAD .\nt\",\"label\":\"Montant du don\",\"type\":\"number\",\"placeholder\":\"Enter donation amount\"}]";
                     break;
                 case RECHARGE:
                     formFieldsJSON = "[{\"key\":\"phoneNumber\",\"label\":\"Numero de telephone\",\"type\":\"text\",\"placeholder\":\"Enter phone number\"}," +
