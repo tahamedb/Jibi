@@ -1,5 +1,6 @@
 package com.ensa.jibi.cmi;
 
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -36,12 +37,9 @@ public class CmiService {
     }
 }
 
+@Getter
 class CmiResponse {
     private boolean favorable;
-
-    public boolean isFavorable() {
-        return favorable;
-    }
 
     public void setFavorable(boolean favorable) {
         this.favorable = favorable;

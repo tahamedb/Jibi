@@ -30,6 +30,7 @@ public class ClientController {
             client.setPhone(clientDTO.getPhone());
             client.setAccountType(clientDTO.getAccountType());
             client.setCin(clientDTO.getCin());
+
             Client registeredClient = clientService.registerClient(client);
 
             return ResponseEntity.ok(registeredClient);
