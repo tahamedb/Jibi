@@ -1,6 +1,7 @@
 package com.ensa.jibi.cmi;
 
 import com.ensa.jibi.model.Client;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -54,6 +55,30 @@ public class CmiService {
         }
     }
 
+
+    public boolean isSoldeSuffisant(Long userId, Double amount) {
+        String url = cmiUrl + "/checkBalance";
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        BalanceRequest balanceRequest = new BalanceRequest(userId, amount);
+
+        HttpEntity<BalanceRequest> requestEntity = new HttpEntity<>(balanceRequest, headers);
+
+        try {
+            ResponseEntity<Boolean> response = restTemplate.exchange(
+                    url,
+                    HttpMethod.POST,
+                    requestEntity,
+                    Boolean.class
+            );
+            return response.getStatusCode().is2xxSuccessful() && Boolean.TRUE.equals(response.getBody());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
 
 @Getter
@@ -70,5 +95,12 @@ class ClientToSend {
     private String firstName;
     private String lastName;
     private String cin;
+}
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+class BalanceRequest {
+    private Long userId;
+    private Double amount;
 }
 

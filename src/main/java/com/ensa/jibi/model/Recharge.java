@@ -16,6 +16,7 @@ public class Recharge  {
 
 
     private double montant;
+    @Enumerated(EnumType.STRING)
     private RechargeType typerecharge;
 
     private String phonenumber;

@@ -5,6 +5,9 @@ import com.ensa.jibi.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,5 +41,14 @@ public class TransactionService {
 
     public List<Transaction> getTransactionsByClientId(Long clientId) {
         return TransactionRepository.getTransactionsByIdClient(clientId);
+    }
+
+    public Long getTodayMontantSum(Long id) {
+        LocalDate today = LocalDate.now();
+        LocalDateTime startOfDay = today.atStartOfDay();
+        LocalDateTime endOfDay = today.atTime(LocalTime.MAX);
+        Long sum=TransactionRepository.findSumOfAllTransactionsToday(startOfDay,endOfDay,id);
+        if(sum==null) return 0L;
+        return sum;
     }
 }

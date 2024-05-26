@@ -16,7 +16,7 @@ public class Creancier {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @Enumerated(EnumType.STRING)
     private CreancierType categorieCreancier;
 
     private String name;

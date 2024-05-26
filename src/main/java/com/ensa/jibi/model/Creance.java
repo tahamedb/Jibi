@@ -2,11 +2,6 @@ package com.ensa.jibi.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import com.ensa.jibi.model.CreanceType;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,7 +21,7 @@ public class Creance {
     private Long id;
 
     private String name;
-
+    @Enumerated(EnumType.STRING)
     private CreanceType creancetype;
 
     private String formFieldsJSON; // JSON string representing the form fields
