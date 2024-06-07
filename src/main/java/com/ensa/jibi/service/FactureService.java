@@ -95,7 +95,7 @@ public class FactureService {
         }
     }
     public boolean isBelowLimit(Double montant, Client client) {
-        Double limit = clientService.getPlafond(client.getAccountType());
+        Double limit = client.getAccountType().getAccountLimit();
         return transactionService.getTodayMontantSum(client.getId()) + montant < limit;
     }
 

@@ -1,5 +1,6 @@
 package com.ensa.jibi.dto;
 
+import com.ensa.jibi.model.AccountType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +14,7 @@ public class ClientDTO {
     private String lastname;
     private String email;
     private String phone;
-    private String accountType;
+    private AccountType accountType;
     private String cin;
 
 

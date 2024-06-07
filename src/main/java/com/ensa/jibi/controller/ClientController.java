@@ -5,6 +5,7 @@ import com.ensa.jibi.dto.LoginRequestDTO;
 import com.ensa.jibi.dto.PasswordChangeDTO;
 import com.ensa.jibi.model.Client;
 import com.ensa.jibi.service.ClientService;
+import com.ensa.jibi.util.QRCodeGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +32,9 @@ public class ClientController {
             client.setAccountType(clientDTO.getAccountType());
             client.setCin(clientDTO.getCin());
 
+
             Client registeredClient = clientService.registerClient(client);
+            QRCodeGenerator.generateQRCode(client);
 
             return ResponseEntity.ok(registeredClient);
         }

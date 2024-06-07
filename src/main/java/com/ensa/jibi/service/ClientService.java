@@ -59,12 +59,12 @@ public class ClientService {
     private String generateTemporaryPassword() {
         return RandomStringUtils.randomAlphanumeric(8);
     }
-    public Double getPlafond(String accountType){
-        switch(accountType){
-            case "hsab1": return 200.0;
-            case "hsab2": return 5000.0;
-            case "hsab3": return 20000.0;
-            default: throw new IllegalArgumentException("Invalid account type: " + accountType);
-        }
-    }
+//    public Double getPlafond(String accountType){
+//        switch(accountType){
+//            case "hsab1": return 200.0;
+//            case "hsab2": return 5000.0;
+//            case "hsab3": return 20000.0;
+//            default: throw new IllegalArgumentException("Invalid account type: " + accountType);
+//        }
+//    }
 }

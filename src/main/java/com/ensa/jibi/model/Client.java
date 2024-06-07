@@ -31,7 +31,8 @@ public class Client {
     private String phone;
 
     @Column(nullable = false)
-    private String accountType;
+    @Enumerated(EnumType.ORDINAL)
+    private AccountType accountType;
 
     @Column(nullable = false)
     private String password;
