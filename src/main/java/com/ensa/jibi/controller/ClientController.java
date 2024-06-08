@@ -25,13 +25,14 @@ public class ClientController {
 
     @PostMapping("/register")
     public ResponseEntity<?> registerClient(@RequestBody ClientDTO clientDTO) {
+        System.out.println(clientDTO);
         try {
             Client client = new Client();
             client.setFirstname(clientDTO.getFirstname());
             client.setLastname(clientDTO.getLastname());
             client.setEmail(clientDTO.getEmail());
             client.setPhone(clientDTO.getPhone());
-            client.setAccountType(AccountType.valueOf(clientDTO.getAccountType()));
+            client.setAccountType(clientDTO.getAccountType());
             client.setCin(clientDTO.getCin());
 
 
@@ -52,6 +53,7 @@ public class ClientController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequestDTO loginRequest) {
+        System.out.println(loginRequest);
         Optional<Client> clientOpt = clientService.verifyPassword(loginRequest.getPhone(), loginRequest.getPassword());
         if (clientOpt.isPresent()) {
             Client client = clientOpt.get();

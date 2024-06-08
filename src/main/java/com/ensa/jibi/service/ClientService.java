@@ -37,6 +37,7 @@ public class ClientService {
 
     public Optional<Client> verifyPassword(String phone, String password) {
         Optional<Client> clientOpt = clientRepository.findByPhone(phone);
+        System.out.println(clientOpt.get());
         if (clientOpt.isPresent()) {
             Client client = clientOpt.get();
             if (passwordEncoder.matches(password, client.getPassword())) {
