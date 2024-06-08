@@ -36,6 +36,7 @@ public class Creancecontroller {
     @GetMapping("/getimpayes")
     public ResponseEntity<List<Facture>> getImpayeFacturesByRefAndCreancier(@RequestParam(value = "ref") String ref, @RequestParam(value = "id") Long creanceId) {
         List<Facture> factures = factureService.getImpayeFacturesByRefAndCreance(ref, creanceId);
+        System.out.println(factures);
         if (factures.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

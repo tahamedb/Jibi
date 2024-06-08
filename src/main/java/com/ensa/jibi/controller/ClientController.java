@@ -3,10 +3,12 @@ package com.ensa.jibi.controller;
 import com.ensa.jibi.dto.ClientDTO;
 import com.ensa.jibi.dto.LoginRequestDTO;
 import com.ensa.jibi.dto.PasswordChangeDTO;
+import com.ensa.jibi.model.AccountType;
 import com.ensa.jibi.model.Client;
 import com.ensa.jibi.service.ClientService;
 import com.ensa.jibi.util.QRCodeGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,7 +31,7 @@ public class ClientController {
             client.setLastname(clientDTO.getLastname());
             client.setEmail(clientDTO.getEmail());
             client.setPhone(clientDTO.getPhone());
-            client.setAccountType(clientDTO.getAccountType());
+            client.setAccountType(AccountType.valueOf(clientDTO.getAccountType()));
             client.setCin(clientDTO.getCin());
 
 
@@ -68,4 +70,14 @@ public class ClientController {
             return ResponseEntity.status(400).body("Failed to change password");
         }
     }
+    @GetMapping("/getClientByPhoneNumber")
+    public ResponseEntity<ClientDTO> getClientByPhoneNumber(@RequestParam String phoneNumber) {
+        ClientDTO clientDTO = clientService.getClientByPhoneNumber(phoneNumber);
+        if (clientDTO != null) {
+            return ResponseEntity.ok(clientDTO);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
 }

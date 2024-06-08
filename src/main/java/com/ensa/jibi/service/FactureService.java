@@ -70,8 +70,10 @@ public class FactureService {
             Double montant = facture.getMontant();
 
             if (transactionService.isBelowLimit(montant, client)) {
-                System.out.println("ana te7t limit mzyan"+cmiService.isSoldeSuffisant(clientId, montant) );
-                if (cmiService.isSoldeSuffisant(clientId, montant)) {
+                boolean goodtogo = cmiService.isSoldeSuffisant(clientId, montant);
+                System.out.println("ana te7t limit mzyan" +goodtogo );
+                if (goodtogo) {
+                    System.out.println("currently toggling facture");
                     toggleImpaye(factureId,clientId);
 
                     // Create a new transaction and save it

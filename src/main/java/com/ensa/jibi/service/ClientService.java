@@ -1,6 +1,7 @@
 package com.ensa.jibi.service;
 
 import com.ensa.jibi.cmi.CmiService;
+import com.ensa.jibi.dto.ClientDTO;
 import com.ensa.jibi.model.Client;
 import com.ensa.jibi.repository.ClientRepository;
 import com.ensa.jibi.sms.TwilioSmsSender;
@@ -59,12 +60,23 @@ public class ClientService {
     private String generateTemporaryPassword() {
         return RandomStringUtils.randomAlphanumeric(8);
     }
-//    public Double getPlafond(String accountType){
-//        switch(accountType){
-//            case "hsab1": return 200.0;
-//            case "hsab2": return 5000.0;
-//            case "hsab3": return 20000.0;
-//            default: throw new IllegalArgumentException("Invalid account type: " + accountType);
-//        }
-//    }
+    public Double getPlafond(String accountType){
+        switch(accountType){
+            case "hsab1": return 200.0;
+            case "hsab2": return 5000.0;
+            case "hsab3": return 20000.0;
+            default: throw new IllegalArgumentException("Invalid account type: " + accountType);
+        }
+    }
+
+    public Optional<Long> getClientIdByPhoneNumber(String phoneNumber) {
+        // Implement your logic to retrieve the client ID from the database based on the phone number
+        // Assuming you have a Client entity with a phoneNumber field in your database
+        Optional<Client> client = clientRepository.findByPhone(phoneNumber);
+        return client.get().getId().describeConstable();
+    }
+
+    public ClientDTO getClientByPhoneNumber(String phoneNumber) {
+        return new ClientDTO(clientRepository.findByPhone(phoneNumber).get());
+    }
 }
