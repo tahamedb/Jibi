@@ -19,6 +19,7 @@ public class TwilioSmsSender {
 
     public void sendSms(String to, String message) {
         Twilio.init(accountSid, authToken);
+
         Message.creator(
                 new PhoneNumber(to),    // To phone number
                 new PhoneNumber(phoneNumber), // From Twilio phone number
