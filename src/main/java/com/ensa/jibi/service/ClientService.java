@@ -47,16 +47,19 @@ public class ClientService {
         return Optional.empty();
     }
 
-    public boolean changePassword(String phone, String newPassword) {
+    public boolean changePassword(String phone, String currentPassword, String newPassword) {
         Optional<Client> clientOpt = clientRepository.findByPhone(phone);
         if (clientOpt.isPresent()) {
             Client client = clientOpt.get();
+            if (!passwordEncoder.matches(currentPassword, client.getPassword())) {
+                return false; // Current password does not match
+            }
             client.setPassword(passwordEncoder.encode(newPassword));  // Hashing du nouveau mot de passe
             client.setRequiresPasswordChange(false);
             clientRepository.save(client);
-            return true;
+            return true; // Password changed successfully
         }
-        return false;
+        return false; // Client not found
     }
     private String generateTemporaryPassword() {
         return RandomStringUtils.randomAlphanumeric(8);
