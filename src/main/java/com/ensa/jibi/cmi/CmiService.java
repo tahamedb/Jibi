@@ -79,7 +79,37 @@ public class CmiService {
             return false;
         }
     }
+
+    public boolean istransfer(double montant, Long senderId, Long recieverId) {
+        String url = cmiUrl + "/maketransfert";
+
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        TransferRequest transferRequest = new TransferRequest(senderId,recieverId, montant);
+
+        HttpEntity<TransferRequest> requestEntity = new HttpEntity<>(transferRequest, headers);
+
+        try {
+            ResponseEntity<Boolean> response = restTemplate.exchange(
+                    url,
+                    HttpMethod.POST,
+                    requestEntity,
+                    Boolean.class
+            );
+            return response.getStatusCode().is2xxSuccessful() && Boolean.TRUE.equals(response.getBody());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 }
+
+
+
+
 
 @Getter
 class CmiResponse {
@@ -101,6 +131,14 @@ class ClientToSend {
 @AllArgsConstructor
 class BalanceRequest {
     private Long userId;
+    private Double amount;
+}
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+class TransferRequest {
+    private Long sender;
+    private Long reciever;
     private Double amount;
 }
 

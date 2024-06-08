@@ -46,7 +46,7 @@ public class RechargeService {
             Double montant = recharge.getMontant();
             RechargeType rechargeType = recharge.getTyperecharge();
 
-            if (isBelowLimit(montant, client)) {
+            if (transactionService.isBelowLimit(montant, client)) {
                 if (cmiService.isSoldeSuffisant(clientId, montant)) {
                     toggleImpaye(rechargeId);
 
@@ -74,10 +74,7 @@ public class RechargeService {
         }
     }
 
-    public boolean isBelowLimit(Double montant, Client client) {
-        Double limit = client.getAccountType().getAccountLimit();
-        return transactionService.getTodayMontantSum(client.getId()) + montant < limit;
-    }
+
 
     public void toggleImpaye(Long rechargeId) {
         Optional<Recharge> r = rechargeRepository.findById(rechargeId);

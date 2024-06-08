@@ -46,11 +46,12 @@ public class FactureService {
         return factureRepository.save(facture);
     }
 
-    public Facture toggleImpaye(Long factureId) {
+    public Facture toggleImpaye(Long factureId, Long clientId) {
         Optional<Facture> f = factureRepository.findById(factureId);
         f.ifPresent(facture -> {
             facture.setStatusfacture(Statusfacture.PAYE);
             facture.setDatepaiement(LocalDateTime.now());
+            facture.setClientid(clientId);
         });
         return f.map(factureRepository::save).orElse(null);
     }
@@ -68,10 +69,10 @@ public class FactureService {
             Client client = cOpt.get();
             Double montant = facture.getMontant();
 
-            if (isBelowLimit(montant, client)) {
+            if (transactionService.isBelowLimit(montant, client)) {
                 System.out.println("ana te7t limit mzyan"+cmiService.isSoldeSuffisant(clientId, montant) );
                 if (cmiService.isSoldeSuffisant(clientId, montant)) {
-                    toggleImpaye(factureId);
+                    toggleImpaye(factureId,clientId);
 
                     // Create a new transaction and save it
                     Transaction transaction = new Transaction();
@@ -94,10 +95,7 @@ public class FactureService {
             throw new IllegalArgumentException("Facture or Client not found for IDs: " + factureId + ", " + clientId);
         }
     }
-    public boolean isBelowLimit(Double montant, Client client) {
-        Double limit = client.getAccountType().getAccountLimit();
-        return transactionService.getTodayMontantSum(client.getId()) + montant < limit;
-    }
+
 
     public List<Facture> getImpayeFacturesByRefAndCreance(String factref, Long creance) {
         return factureRepository.findByStatusfactureAndFactrefAndCreance_Id(Statusfacture.IMPAYE, factref, creance);
