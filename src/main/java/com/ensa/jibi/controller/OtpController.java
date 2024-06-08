@@ -23,7 +23,9 @@ public class OtpController {
         // Generate a random OTP (e.g., 6-digit code)
         String otp = otpService.generateOtp();
         // Send the OTP to the frontend
-        otpService.sendOtp(phoneNumber, otp);
+        System.out.println(otp);
+//        otpService.sendOtp(phoneNumber, otp);
+
         return ResponseEntity.ok(otp);
     }
 

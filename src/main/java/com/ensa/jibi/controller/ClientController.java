@@ -73,6 +73,7 @@ public class ClientController {
     @PostMapping("/change-password")
     public ResponseEntity<?> changePassword(@RequestBody PasswordChangeDTO passwordChangeRequest) {
         System.out.println(passwordChangeRequest);
+        System.out.println(passwordChangeRequest);
         if (!passwordChangeRequest.getNewPassword().equals(passwordChangeRequest.getConfirmNewPassword())) {
             return ResponseEntity.badRequest().body("New password and confirm password do not match");
         }
@@ -92,6 +93,7 @@ public class ClientController {
     }
     @GetMapping("/getClientByPhoneNumber")
     public ResponseEntity<ClientDTO> getClientByPhoneNumber(@RequestParam String phoneNumber) {
+        System.out.println(phoneNumber);
         ClientDTO clientDTO = clientService.getClientByPhoneNumber(phoneNumber);
         if (clientDTO != null) {
             return ResponseEntity.ok(clientDTO);
