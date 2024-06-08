@@ -21,7 +21,7 @@ public class TransactionController {
     }
 
     @PostMapping("/transfert")
-    public ResponseEntity<String> payerFacture(@RequestParam double montant, @RequestParam Long senderId, @RequestParam Long recieverId ) {
+    public ResponseEntity<String> payerFacture(@RequestParam double montant, @RequestParam String senderId, @RequestParam String recieverId ) {
         try {
             if(senderId == recieverId){
                 throw new IllegalArgumentException("Error : Sender is the sanme as the Reciever");

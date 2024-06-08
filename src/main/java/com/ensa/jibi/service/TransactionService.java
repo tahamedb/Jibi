@@ -66,15 +66,19 @@ public class TransactionService {
         return sum;
     }
 
-    public void effectuerTransfert(double montant, Long senderId, Long recieverId) {
+    public void effectuerTransfert(double montant, String senderph, String recieverph) {
 
-        Optional<Client> sdr = clientRepository.findById(senderId);
-        Optional<Client> rcvr = clientRepository.findById(recieverId);
+        Optional<Client> sdr = clientRepository.findByPhone(senderph);
+        Optional<Client> rcvr = clientRepository.findByPhone(recieverph);
+
 
 
         if (sdr.isPresent() && rcvr.isPresent()) {
             Client sender = sdr.get();
             Client reciever = rcvr.get();
+
+            Long senderId = sender.getId();
+            Long recieverId = reciever.getId();
 
             if (isBelowLimit(montant, sender)) {
                 if (cmiService.istransfer(montant,senderId,recieverId)) {
@@ -106,7 +110,7 @@ public class TransactionService {
                 throw new RuntimeException("Transaction amount exceeds limit for client ID: " + senderId);
             }
         } else {
-            throw new IllegalArgumentException("Sender i same as Reciever or not found for IDs: " + senderId + ", " + recieverId);
+            throw new IllegalArgumentException("Sender i same as Reciever or not found for IDs: ");
         }
     }
 
