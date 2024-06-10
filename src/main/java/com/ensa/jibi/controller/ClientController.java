@@ -52,6 +52,17 @@ public class ClientController {
             return ResponseEntity.status(400).body(e.getMessage());
             }
     }
+    @GetMapping("/getbalance")
+    public ResponseEntity<Float> getbalance(@RequestParam String phoneNumber) {
+
+        System.out.println(phoneNumber);
+        Float balance = clientService.getbalancebyPhone(phoneNumber);
+        if (balance != null) {
+            return ResponseEntity.ok(balance);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequestDTO loginRequest) {

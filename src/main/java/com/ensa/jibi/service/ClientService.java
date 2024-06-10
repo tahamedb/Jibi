@@ -83,4 +83,10 @@ public class ClientService {
     public ClientDTO getClientByPhoneNumber(String phoneNumber) {
         return new ClientDTO(clientRepository.findByPhone(phoneNumber).get());
     }
+
+    public Float getbalancebyPhone(String phone){
+        Long clientId = getClientIdByPhoneNumber(phone).get();
+        System.out.println(clientId);
+        return cmiService.getbalance(clientId);
+    }
 }

@@ -56,6 +56,30 @@ public class CmiService {
     }
 
 
+    public Float getbalance(Long clientId){
+        String url = cmiUrl + "/getbalance";
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<Long> requestEntity = new HttpEntity<>(clientId, headers);
+
+        try {
+            ResponseEntity<Float> response = restTemplate.exchange(
+                    url,
+                    HttpMethod.POST,
+                    requestEntity,
+                    Float.class
+            );
+            return Float.parseFloat(response.getBody().toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0F;
+        }
+    }
+
+
+
     public boolean isSoldeSuffisant(Long userId, Double amount) {
         String url = cmiUrl + "/checkBalance";
 
@@ -141,4 +165,3 @@ class TransferRequest {
     private Long reciever;
     private Double amount;
 }
-
