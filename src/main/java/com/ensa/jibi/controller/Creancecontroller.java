@@ -1,6 +1,7 @@
 package com.ensa.jibi.controller;
 
 
+import com.ensa.jibi.cmi.CmiService;
 import com.ensa.jibi.dto.CreanceFormDTO;
 import com.ensa.jibi.model.Facture;
 import com.ensa.jibi.service.CreanceService;
@@ -21,11 +22,12 @@ public class Creancecontroller {
     @Autowired
     private CreanceService creanceService;
     @Autowired
-    private FactureService factureService;
+    private CmiService cmiService;
+
 
     @GetMapping("/getforms")
     public ResponseEntity<CreanceFormDTO> getCreanceFormDetails(@RequestParam(value = "id", required = true) Long id) {
-        CreanceFormDTO creanceFormDTO = creanceService.getCreanceFormDetails(id);
+        CreanceFormDTO creanceFormDTO = cmiService.getCreanceFormDetails(id);
         if (creanceFormDTO != null) {
             return ResponseEntity.ok(creanceFormDTO);
         } else {
@@ -35,7 +37,7 @@ public class Creancecontroller {
 
     @GetMapping("/getimpayes")
     public ResponseEntity<List<Facture>> getImpayeFacturesByRefAndCreancier(@RequestParam(value = "ref") String ref, @RequestParam(value = "id") Long creanceId) {
-        List<Facture> factures = factureService.getImpayeFacturesByRefAndCreance(ref, creanceId);
+        List<Facture> factures = cmiService.getImpayeFacturesByRefAndCreance(ref, creanceId);
         System.out.println(factures);
         if (factures.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

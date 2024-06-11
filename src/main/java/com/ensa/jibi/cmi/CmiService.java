@@ -1,15 +1,23 @@
 package com.ensa.jibi.cmi;
 
+import com.ensa.jibi.dto.CreanceFormDTO;
 import com.ensa.jibi.model.Client;
+import com.ensa.jibi.model.Facture;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.beans.factory.annotation.Value;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class CmiService {
@@ -75,6 +83,54 @@ public class CmiService {
         } catch (Exception e) {
             e.printStackTrace();
             return 0F;
+        }
+    }
+    public CreanceFormDTO getCreanceFormDetails(Long id){
+        String url = cmiUrl + "/getbalance";
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<Long> requestEntity = new HttpEntity<>(id, headers);
+
+        try {
+            ResponseEntity<CreanceFormDTO> response = restTemplate.exchange(
+                    url,
+                    HttpMethod.POST,
+                    requestEntity,
+                    CreanceFormDTO.class
+            );
+            return response.getBody();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public List<Facture> getImpayeFacturesByRefAndCreance(String factref, Long creance){
+        String url = cmiUrl + "/getImpayee";
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        // Create a request object containing factref and creance
+        Map<String, Object> requestBody = new HashMap<>();
+        requestBody.put("factref", factref);
+        requestBody.put("creance", creance);
+
+        HttpEntity<Map<String, Object>> requestEntity = new HttpEntity<>(requestBody, headers);
+
+        try {
+            ResponseEntity<List<Facture>> response = restTemplate.exchange(
+                    url,
+                    HttpMethod.POST,
+                    requestEntity,
+                    new ParameterizedTypeReference<List<Facture>>() {}
+            );
+            return response.getBody();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Collections.emptyList();
         }
     }
 
