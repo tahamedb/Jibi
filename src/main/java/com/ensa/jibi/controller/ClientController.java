@@ -53,7 +53,7 @@ public class ClientController {
             }
     }
     @GetMapping("/getbalance")
-    public ResponseEntity<Float> getbalance(@RequestParam String phoneNumber) {
+    public ResponseEntity<Float> getbalance(@RequestParam(value = "phoneNumber") String phoneNumber) {
 
         System.out.println(phoneNumber);
         Float balance = clientService.getbalancebyPhone(phoneNumber);
