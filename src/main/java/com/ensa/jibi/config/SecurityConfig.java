@@ -63,7 +63,7 @@ public class SecurityConfig  {
                         //.requestMatchers("/backoffice/change-password").permitAll()
                         // .requestMatchers("/agents/**").hasRole("AGENT")
                                 // .requestMatchers("/signin/agent").permitAll()
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 )
                 .sessionManagement(sessionManagement -> sessionManagement
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
