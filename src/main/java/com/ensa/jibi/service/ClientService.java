@@ -89,4 +89,8 @@ public class ClientService {
         System.out.println(clientId);
         return cmiService.getbalance(clientId);
     }
+
+    public Optional<Client> findByPhone(String phone) {
+        return clientRepository.findByPhone(phone);
+    }
 }

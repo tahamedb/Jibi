@@ -49,6 +49,7 @@ public class SecurityConfig  {
                         //.requestMatchers(HttpMethod.GET, "/authenticate/signin/**").permitAll()
                         //.requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/auth/authenticate").permitAll()
+                        .requestMatchers("/api/clients/authenticate_client").permitAll()
 //
                         //.requestMatchers("/api/**").permitAll()
                         //.requestMatchers("/api/account/*").permitAll()
