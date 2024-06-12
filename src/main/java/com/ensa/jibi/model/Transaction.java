@@ -1,9 +1,6 @@
 package com.ensa.jibi.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -27,9 +24,8 @@ public class Transaction {
     private LocalDateTime date;
 
     private Double montant;
-
-    private TransactionType type; // Either "entrée" or "sortie" in cap letter lmao
+    @Enumerated(EnumType.STRING)
+    private TransactionType type;
 
     private String beneficaire;
-    // Add getters and setters
 }

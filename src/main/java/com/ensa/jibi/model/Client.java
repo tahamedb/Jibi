@@ -31,7 +31,8 @@ public class Client {
     private String phone;
 
     @Column(nullable = false)
-    private String accountType;
+    @Enumerated(EnumType.ORDINAL)
+    private AccountType accountType;
 
     @Column(nullable = false)
     private String password;
@@ -42,7 +43,9 @@ public class Client {
     @Column(nullable = false)
     private String cin;
 
-
+    @ManyToOne
+    @JoinColumn(name = "agent_id")
+    private Agent agent;
 
 
 

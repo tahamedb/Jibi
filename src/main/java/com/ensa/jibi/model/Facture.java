@@ -23,15 +23,15 @@ public class Facture {
 
     private LocalDateTime echeance;
 
-    private String clientid;
+    private Long clientid;
 
     private LocalDateTime datepaiement;
-
+    @Enumerated(EnumType.STRING)
     private Statusfacture statusfacture;
 
     private double montant;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch  = FetchType.EAGER)
     @JoinColumn(name = "CreanceID", nullable = false)
     private Creance creance;
 
